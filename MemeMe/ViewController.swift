@@ -193,33 +193,29 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                              bottomText: self.bottomTextField.text!,
                              originalImage: self.imageView.image!,
                              alteredImage: resultingMeme)
+                self.restartAll()
             }
         }
         present(shareActivityVC, animated: true)
-        
     }
     
     @IBAction func cancelSelected(_ sender: Any) {
-        imageView.image = nil
-        
-        restartTextFields()
-        
-        cancelButton.isEnabled = false
-        shareButton.isEnabled = false
+        restartAll()
     }
     
     // MARK: TextFields
     
-    func restartTextFields(){
+    func restartAll(){
+        
+        imageView.image = nil
+        cancelButton.isEnabled = false
+        shareButton.isEnabled = false
         
         var textfield: UITextField!
-        
         for textfield in [topTextField, bottomTextField]{
             textfield?.isEnabled = false
             textfield?.text = ""
         }
-        
-        
         topTextField.placeholder = "top"
         bottomTextField.placeholder = "bottom"
     }
