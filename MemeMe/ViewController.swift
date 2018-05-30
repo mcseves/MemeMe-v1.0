@@ -50,6 +50,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             text.textAlignment = .center
         }
         
+        cancelButton.isEnabled = false
+        shareButton.isEnabled = false
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,7 +61,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // keyboard adjustments
         subscribeToKeyboardNotifications()
         
+        // Disabling buttons
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -85,14 +90,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.delegate = self
         imagePicker.sourceType = source
         present(imagePicker, animated: true, completion: nil)
+        
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage? {
             imageView.image = image
             imageView.contentMode = .scaleAspectFit
+            shareButton.isEnabled = true
+            topTextField.text = "TOP"
+            bottomTextField.text = "BOTTOM"
         }
         dismiss(animated: true, completion: nil)
+        // Enabling sharing button
+        shareButton.isEnabled = true
+        cancelButton.isEnabled = true
+        print("cheguei aqui!")
     }
     
     
@@ -100,6 +113,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.placeholder = nil
+        textField.text = ""
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -164,5 +178,53 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         return memedImage
     }
+    
+    // MARK: Share Actions
+    
+    @IBAction func shareSelected(_ sender: Any) {
+        
+        let resultingMeme: UIImage = generateMemedImage()
+        
+        let shareActivityVC = UIActivityViewController(activityItems: [resultingMeme], applicationActivities: nil)
+        shareActivityVC.completionWithItemsHandler = {
+            (activityType, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            if completed {
+                let meme = Meme(topText: self.topTextField.text!,
+                             bottomText: self.bottomTextField.text!,
+                             originalImage: self.imageView.image!,
+                             alteredImage: resultingMeme)
+            }
+        }
+        present(shareActivityVC, animated: true)
+        
+    }
+    
+    @IBAction func cancelSelected(_ sender: Any) {
+        imageView.image = nil
+        
+        restartTextFields()
+        
+        cancelButton.isEnabled = false
+        shareButton.isEnabled = false
+    }
+    
+    // MARK: TextFields
+    
+    func restartTextFields(){
+        
+        var textfield: UITextField!
+        
+        for textfield in [topTextField, bottomTextField]{
+            textfield?.isEnabled = false
+            textfield?.text = ""
+        }
+        
+        
+        topTextField.placeholder = "top"
+        bottomTextField.placeholder = "bottom"
+    }
+    
+    
 }
+
 
