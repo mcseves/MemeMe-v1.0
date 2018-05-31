@@ -8,7 +8,7 @@
 
 import UIKit
 
-// MARK: - ViewController: UIViewController, UIImagePickerControllerDelegate
+// MARK: - ViewController: UIViewController, UIImagePickerControllerDelegate, UITextFieldDelegate
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate{
 
@@ -29,27 +29,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var bottomTextField: UITextField!
     
     
-    // MARK: Properties
-
-    let textAttributes: [String: Any] = [
-        NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
-        NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
-        NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSAttributedStringKey.strokeWidth.rawValue: -5.0]
-    
-    
     // MARK: Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        let textFields: [UITextField] = [topTextField, bottomTextField]
-        
-        for text in textFields{
-            text.delegate = self
-            text.defaultTextAttributes = textAttributes
-            text.autocapitalizationType = .allCharacters
-            text.textAlignment = .center
-        }
-        
+       
+        configureTextFields()
         cancelButton.isEnabled = false
         shareButton.isEnabled = false
         
@@ -99,13 +83,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             imageView.contentMode = .scaleAspectFit
             shareButton.isEnabled = true
             topTextField.text = "TOP"
+            topTextField.isEnabled = true
             bottomTextField.text = "BOTTOM"
+            bottomTextField.isEnabled = true
         }
         dismiss(animated: true, completion: nil)
-        // Enabling sharing button
+        
+        // Enabling sharing and canceling buttons
         shareButton.isEnabled = true
         cancelButton.isEnabled = true
-        print("cheguei aqui!")
     }
     
     
@@ -155,7 +141,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return keyboardSize.cgRectValue.height
     }
     
-    // MARK: Meme manipulation
+    // MARK: Image manipulation
     func save(){
         let memedImage = generateMemedImage()
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, alteredImage: memedImage)
@@ -163,7 +149,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func generateMemedImage() -> UIImage{
         
-        // TODO: hide toolbar and navbar
         toolBar.isHidden = true
         navBar.isHidden = true
         
@@ -172,7 +157,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
-        // todo: show toolbar and navbar
         toolBar.isHidden = false
         navBar.isHidden = false
         
@@ -203,7 +187,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         restartAll()
     }
     
-    // MARK: TextFields
+    // MARK: view adjustments
     
     func restartAll(){
         
@@ -220,6 +204,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         bottomTextField.placeholder = "bottom"
     }
     
+    func configureTextFields(){
+        let textAttributes: [String: Any] = [
+            NSAttributedStringKey.strokeColor.rawValue: UIColor.black,
+            NSAttributedStringKey.foregroundColor.rawValue: UIColor.white,
+            NSAttributedStringKey.font.rawValue: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+            NSAttributedStringKey.strokeWidth.rawValue: -5.0]
+        
+        let textFields: [UITextField] = [topTextField, bottomTextField]
+        
+        for text in textFields{
+            text.delegate = self
+            text.defaultTextAttributes = textAttributes
+            text.autocapitalizationType = .allCharacters
+            text.textAlignment = .center
+        }
+    }
     
 }
 

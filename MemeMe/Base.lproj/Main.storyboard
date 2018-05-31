@@ -21,13 +21,18 @@
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2ZQ-oD-jPR">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="li2-5K-8Ko"/>
+                                </constraints>
                                 <items>
                                     <barButtonItem title="Pick" id="atj-xe-ov9">
+                                        <color key="tintColor" red="0.97254901959999995" green="0.89019607840000003" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="pickAnImageFromAlbum:" destination="BYZ-38-t0r" id="SJf-B2-3rV"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Camera" id="Ime-A8-hK3">
+                                    <barButtonItem systemItem="camera" id="Ime-A8-hK3">
+                                        <color key="tintColor" red="0.97254901959999995" green="0.89019607840000003" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="pickAnImageFromCamera:" destination="BYZ-38-t0r" id="o9t-Z7-wOG"/>
                                         </connections>
@@ -35,7 +40,7 @@
                                 </items>
                                 <color key="barTintColor" red="0.023529411764705882" green="0.027450980392156862" blue="0.035294117647058823" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I7c-ns-03Z">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I7c-ns-03Z">
                                 <rect key="frame" x="0.0" y="56" width="375" height="567"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Bottom Text" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FY7-hX-g0V">
@@ -56,12 +61,14 @@
                                 <color key="barTintColor" red="0.023529411764705882" green="0.027450980392156862" blue="0.035294117647058823" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
                                     <navigationItem id="x0e-nw-b63">
-                                        <barButtonItem key="leftBarButtonItem" title="Share" id="XrN-WN-s7r">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="XrN-WN-s7r">
+                                            <color key="tintColor" red="0.97254901959999995" green="0.89019607840000003" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="shareSelected:" destination="BYZ-38-t0r" id="Q7L-Cc-5JF"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" title="Cancel" id="Nvv-y9-BWf">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="Nvv-y9-BWf">
+                                            <color key="tintColor" red="0.97254901959999995" green="0.89019607840000003" blue="0.76862745099999996" alpha="1" colorSpace="calibratedRGB"/>
                                             <connections>
                                                 <action selector="cancelSelected:" destination="BYZ-38-t0r" id="10a-Jh-7c6"/>
                                             </connections>
@@ -73,14 +80,16 @@
                         <color key="backgroundColor" red="0.023394979536533356" green="0.027324819937348366" blue="0.035653680562973022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="I7c-ns-03Z" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Acs-cF-S94"/>
+                            <constraint firstItem="I7c-ns-03Z" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Gkd-ie-aDj"/>
                             <constraint firstItem="vds-QK-cFx" firstAttribute="leading" secondItem="FY7-hX-g0V" secondAttribute="leading" id="JfZ-S9-bZy"/>
-                            <constraint firstItem="I7c-ns-03Z" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="23" id="LRe-yw-pop"/>
+                            <constraint firstItem="I7c-ns-03Z" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="36" id="LRe-yw-pop"/>
                             <constraint firstItem="2ZQ-oD-jPR" firstAttribute="top" secondItem="FY7-hX-g0V" secondAttribute="bottom" constant="50" id="PI0-gd-296"/>
                             <constraint firstItem="FY7-hX-g0V" firstAttribute="centerX" secondItem="2ZQ-oD-jPR" secondAttribute="centerX" id="QzE-6u-7A3"/>
                             <constraint firstItem="2ZQ-oD-jPR" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Tpq-er-jQY"/>
                             <constraint firstAttribute="trailing" secondItem="I7c-ns-03Z" secondAttribute="trailing" id="UtR-Ny-csD"/>
                             <constraint firstItem="vds-QK-cFx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="93" id="VZg-il-Ecd"/>
                             <constraint firstItem="2ZQ-oD-jPR" firstAttribute="trailing" secondItem="I7c-ns-03Z" secondAttribute="trailing" id="ZrJ-8q-Rcv"/>
+                            <constraint firstItem="I7c-ns-03Z" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="doR-Og-L88"/>
                             <constraint firstItem="I7c-ns-03Z" firstAttribute="leading" secondItem="2ZQ-oD-jPR" secondAttribute="leading" id="eqs-Kk-fuX"/>
                             <constraint firstItem="2ZQ-oD-jPR" firstAttribute="top" secondItem="I7c-ns-03Z" secondAttribute="bottom" id="fZd-xx-A2M"/>
                             <constraint firstItem="vds-QK-cFx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="lUa-k4-03t"/>
